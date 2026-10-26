@@ -5,7 +5,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/inventory_db}
     username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:2004}
+    password: ${DB_PASSWORD:}
 
   jpa:
     open-in-view: false
@@ -25,7 +25,7 @@ spring:
     host: ${RABBIT_HOST:localhost}
     port: ${RABBIT_PORT:5672}
     username: ${RABBIT_USER:guest}
-    password: ${RABBIT_PASSWORD:guest}
+    password: ${RABBIT_PASSWORD:}
     listener:
       simple:
         concurrency: 2
@@ -40,7 +40,7 @@ spring:
 app:
   jwt:
     # Base64 encoded, >= 256 bits. OVERRIDE with the JWT_SECRET env var outside local dev.
-    secret: ${JWT_SECRET:Ppp9mDb83feCa7tYYoVlMpNyjJdz08gF2R+0bd2sEdvuEycQA9XjqXto25f8U7gS}
+    secret: ${JWT_SECRET:}
     expiration: 8h
   rate-limit:
     enabled: true
