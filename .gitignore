@@ -1,0 +1,12 @@
+target/
+.idea/
+*.iml
+*.log
+.DS_Store
+.vscode/
+out/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example

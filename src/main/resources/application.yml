@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: inventory-management-system
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/inventory_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:2004}
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update}   # use Flyway/Liquibase + "validate" in real production
+    properties:
+      hibernate:
+        jdbc.time_zone: UTC
+        default_batch_fetch_size: 50
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASSWORD:guest}
+    listener:
+      simple:
+        concurrency: 2
+        max-concurrency: 8
+        default-requeue-rejected: false     # failed messages go to the DLQ, not an endless loop
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1s
+          multiplier: 2
+
+app:
+  jwt:
+    # Base64 encoded, >= 256 bits. OVERRIDE with the JWT_SECRET env var outside local dev.
+    secret: ${JWT_SECRET:Ppp9mDb83feCa7tYYoVlMpNyjJdz08gF2R+0bd2sEdvuEycQA9XjqXto25f8U7gS}
+    expiration: 8h
+  rate-limit:
+    enabled: true
+    capacity: 100          # requests per refill-period per user (or IP when anonymous)
+    auth-capacity: 10      # stricter bucket for /api/auth/** (per IP) to slow brute force
+    refill-period: 1m
+  low-stock:
+    cron: "0 */5 * * * *"  # every 5 minutes
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  level:
+    com.inventory: INFO
