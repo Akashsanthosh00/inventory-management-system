@@ -46,6 +46,16 @@ ids for you). In Swagger: call `POST /api/auth/register`, copy `accessToken`, cl
 
 ---
 
+## Screenshots
+
+### Inventory Management System
+
+![Inventory 1](screenshots/Inventory%201.png)
+
+![Inventory 2](screenshots/Inventory%202.png)
+
+![Inventory 3](screenshots/Inventory%203.png)
+
 ## 2. Tests
 
 ```bash
