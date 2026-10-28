@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_DB: inventory
       POSTGRES_USER: inventory
-      POSTGRES_PASSWORD: inventory
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in your environment}
     ports: ["5432:5432"]
     volumes: [pgdata:/var/lib/postgresql/data]
     healthcheck:
@@ -47,7 +47,7 @@ services:
     environment:
       DB_URL: jdbc:postgresql://postgres:5432/inventory
       DB_USER: inventory
-      DB_PASSWORD: inventory
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in your environment}
       REDIS_HOST: redis
       RABBIT_HOST: rabbitmq
       JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in your environment}
