@@ -40,6 +40,9 @@ spring:
           initial-interval: 1s
           multiplier: 2
 
+server:
+  port: ${PORT:8080}
+
 app:
   jwt:
     # Base64 encoded, >= 256 bits. OVERRIDE with the JWT_SECRET env var outside local dev.
@@ -64,6 +67,8 @@ management:
         include: health,info
   endpoint:
     health:
+      show-details: never
+      show-component: never
       probes:
         enabled: true
 
